@@ -1,0 +1,27 @@
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+    enabled: true
+    encoding: UTF-8
+    mode: HTML5
+    servlet:
+      content-type: text/html
+  datasource:
+    url: jdbc:mysql://localhost/lkhu?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+    username: root
+    password: 123123
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+  redis:
+    host:
+    port:
+    timeout:
+    password: 123123
+
+mybatis:
+  type-aliases-package: com.lkhu.springboot.model
+  mapper-locations: classpath:com/lkhu/springboot/mapper/*.xml
+  configuration:
+    call-setters-on-nulls: true
