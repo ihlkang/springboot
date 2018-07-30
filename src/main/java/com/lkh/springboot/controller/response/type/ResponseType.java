@@ -34,4 +34,9 @@ public interface ResponseType {
     default Map<String,Object> toResponseBody(@Nonnull Map<String,?> data){
         return toResponseBody(null,data);
     }
+
+    @Nonnull
+    default Map<String,Object> toResponseBody(){
+        return toResponseBody(null,(Map<String,?>) null);
+    }
 }

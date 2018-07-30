@@ -41,7 +41,6 @@ public class UserController {
 
     @PostMapping("add")
     public Map<String,Object> addUser(){
-
+        return UserResponseType.SUCCESS.toResponseBody();
     }
-
 }
