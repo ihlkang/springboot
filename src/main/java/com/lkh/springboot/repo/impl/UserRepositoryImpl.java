@@ -15,13 +15,13 @@ public class UserRepositoryImpl implements UserRepository {
     @Autowired
 
     @Override
-    public User findById(int id) {
-        return userMapper.findById(id);
+    public User findByMobile(String mobile) {
+        return userMapper.findByMobile(mobile);
     }
 
     @Override
-    public User findByMobile(String mobile) {
-        return userMapper.findByMobile(mobile);
+    public User findByMobileAndPassword(String mobile,String password) {
+        return userMapper.findByMobileAndPassword(mobile,password);
     }
 
     @Override

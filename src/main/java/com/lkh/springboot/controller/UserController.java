@@ -32,11 +32,16 @@ public class UserController {
                                             @RequestParam String password,
                                             @RequestParam String captchaToken) {
         log.info("mobile:"+mobile+",password:"+password+",captchaToken:"+captchaToken);
-        captchaService.requireCaptchaValidated(captchaToken);
+        //captchaService.requireCaptchaValidated(captchaToken);
         Pair<String,User> tokenAndUser = userService.loginUserByMobile(mobile,password);
         String token = tokenAndUser.getFirst();
         Map<String,Object> data = CollectionUtil.toMap(Pair.make("authenToken",token));
         return UserResponseType.SUCCESS.toResponseBody(data);
+    }
+
+    @PostMapping("add")
+    public Map<String,Object> addUser(){
+
     }
 
 }

@@ -7,14 +7,33 @@ import javax.validation.constraints.NotNull;
 
 public class User {
     private Integer id;
+    private String name;
     @NotNull
     @IsMobile
     private String mobile;
     @NotNull
     @Length(min=32)
     private String password;
+    private String createTime;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
 
     public Integer getId() {
+
         return id;
     }
 
