@@ -1,11 +1,10 @@
-package com.lkh.springboot.model;
+package com.lkh.springboot.controller.request;
 
 import com.lkh.springboot.annotation.IsMobile;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
-public class User {
+public class UserRequest implements Request{
     private Integer id;
     private String name;
     @NotNull
@@ -24,29 +23,20 @@ public class User {
         this.passwordSalt = passwordSalt;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public Integer getId() {
-
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getMobile() {
@@ -64,8 +54,12 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    @Override
-    public String toString() {
-        return "User [mobile=" + mobile + ", password=" + password + "]";
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 }

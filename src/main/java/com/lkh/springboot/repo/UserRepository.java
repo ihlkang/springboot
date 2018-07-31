@@ -1,5 +1,6 @@
 package com.lkh.springboot.repo;
 
+import com.lkh.springboot.controller.request.UserRequest;
 import com.lkh.springboot.model.User;
 
 public interface UserRepository {
@@ -7,5 +8,5 @@ public interface UserRepository {
     
     User findByMobileAndPassword(String mobile,String password);
     
-    void createUser(int id,String mobile);
+    void createUser(UserRequest userRequest);
 }

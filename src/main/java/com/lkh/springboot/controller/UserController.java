@@ -1,5 +1,6 @@
 package com.lkh.springboot.controller;
 
+import com.lkh.springboot.controller.request.UserRequest;
 import com.lkh.springboot.controller.response.type.UserResponseType;
 import com.lkh.springboot.model.User;
 import com.lkh.springboot.service.CaptchaService;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 @RestController
@@ -39,8 +41,9 @@ public class UserController {
         return UserResponseType.SUCCESS.toResponseBody(data);
     }
 
-    @PostMapping("add")
-    public Map<String,Object> addUser(){
+    @PostMapping("/add")
+    public Map<String,Object> addUser(@Valid @ModelAttribute UserRequest userRequest){
+        userService.addUser(userRequest);
         return UserResponseType.SUCCESS.toResponseBody();
     }
 }

@@ -1,6 +1,7 @@
 package com.lkh.springboot.service.impl;
 
 import com.google.common.base.Strings;
+import com.lkh.springboot.controller.request.UserRequest;
 import com.lkh.springboot.model.User;
 import com.lkh.springboot.repo.UserRepository;
 import com.lkh.springboot.service.UserService;
@@ -36,6 +37,21 @@ public class UserServiceImpl implements UserService {
         }else{
             throw new UserException(UserException.ErrorType.UNMODIFIABLE_SESSION);
         }
+    }
+
+    @Override
+    public void addUser(UserRequest userRequest) {
+        setSaltToUser(userRequest);
+        createUser(userRequest);
+    }
+
+    private void createUser(UserRequest userRequest) {
+        userRepository.createUser(userRequest);
+    }
+
+    private void setSaltToUser(UserRequest userRequest) {
+        String salt = TokenUtil.generate(128,"",128);
+        userRequest.setPasswordSalt(salt);
     }
 
     private String tryToPutUserInRedis(User user) {

@@ -1,5 +1,6 @@
 package com.lkh.springboot.mapper;
 
+import com.lkh.springboot.controller.request.UserRequest;
 import com.lkh.springboot.model.User;
 
 public interface UserMapper {
@@ -7,6 +8,6 @@ public interface UserMapper {
 
     User findByMobileAndPassword(String mobile,String password);
 
-    void createUser(int id, String mobile);
+    void createUser(UserRequest userRequest);
 
 }

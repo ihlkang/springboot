@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.lkh.springboot.mapper.UserMapper">
-    <resultMap id="User" type="com.lkh.springboot.model.User">
+    <resultMap id="user" type="com.lkh.springboot.model.User">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="mobile" column="mobile"/>
         <result property="password" column="password"/>
         <result property="createTime" column="createTime"/>
     </resultMap>
-    <select id="findByMobileAndPassword" resultMap="User">
+
+    <select id="findByMobileAndPassword" resultMap="user">
         SELECT
             user_id AS id,
             user_name AS name,
@@ -19,7 +21,7 @@
         WHERE user_mobile = #{mobile} AND pwd = MD5(CONCAT(#password),pwd_salt)
     </select>
 
-    <select id="findByMobile" resultMap="User">
+    <select id="findByMobile" resultMap="user">
         SELECT
             user_id AS id,
             user_name AS name,
@@ -29,4 +31,18 @@
         FROM inf_admin_user
         WHERE user_mobile = #{mobile}
     </select>
+
+    <insert id="createUser" useGeneratedKeys="true" keyColumn="user_id" keyProperty="id">
+        INSERT INTO
+            inf_admin_user (
+            user_name,
+            user_mobile,
+            pwd,
+            pwd_salt )
+        VALUES (
+            #{name},
+            #{mobile},
+            MD5(CONCAT(#{password},#{passwordSalt})),
+            #{passwordSalt})
+    </insert>
 </mapper>

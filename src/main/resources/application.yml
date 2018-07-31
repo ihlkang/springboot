@@ -1,15 +1,7 @@
 spring:
-  thymeleaf:
-    prefix: classpath:/templates/
-    suffix: .html
-    cache: false
-    enabled: true
-    encoding: UTF-8
-    mode: HTML5
-    servlet:
-      content-type: text/html
   datasource:
-    url: jdbc:mysql://localhost/miaosha?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false
+    url: "jdbc:mysql://localhost/miaosha?useUnicode=true&\
+                                                  characterEncoding=utf-8&allowMultiQueries=true"
     username: root
     password: 123123
     driver-class-name: com.mysql.jdbc.Driver
@@ -17,10 +9,13 @@ spring:
   redis:
     host: 192.168.226.98
     port: 6379
-    password: 123123
+    password:
+    timeout: 30
 
 mybatis:
-  type-aliases-package: com.lkhu.springboot.model
   mapper-locations: classpath:com/lkhu/springboot/mapper/*.xml
   configuration:
     call-setters-on-nulls: true
+server:
+  port: 9455
+

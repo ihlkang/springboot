@@ -12,9 +12,11 @@ import java.util.Objects;
 @Service
 public class RedisService {
 
+    private final JedisPool jedisPool;
     @Autowired
-    JedisPool jedisPool;
-
+    public RedisService(JedisPool jedisPool){
+        this.jedisPool = jedisPool;
+    }
     public <T> T get(KeyPrefix prefix,String key,Class<T> clazz){
         Jedis jedis = jedisPool.getResource();
         String reallyKey = prefix.getPrefix()+key;
