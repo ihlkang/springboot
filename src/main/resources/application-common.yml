@@ -1,0 +1,19 @@
+spring:
+  http:
+    encoding:
+      enabled: true
+    multipart:
+          max-file-size: 100MB
+          max-request-size: 100MB
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:com/lkhu/springboot/mapper/*.xml
+  configuration:
+    call-setters-on-nulls: true
+server:
+  compression:
+    enabled: true
+

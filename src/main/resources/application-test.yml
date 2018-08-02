@@ -1,0 +1,13 @@
+spring:
+  mvc:
+    async:
+      request-timeout: 3000000
+  datasource:
+    url: "jdbc:mysql://127.0.0.1:3306/miaosha?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true"
+    username: root
+    password: 123123
+    hikari:
+      idle-timeout: 120000
+      maximum-pool-size: 8
+server:
+  port: 9455
