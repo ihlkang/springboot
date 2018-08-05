@@ -18,7 +18,7 @@
             '' AS password,
             create_time AS createTime
         FROM inf_admin_user
-        WHERE user_mobile = #{mobile} AND pwd = MD5(CONCAT(#password),pwd_salt)
+        WHERE user_mobile = #{mobile} AND pwd = MD5(CONCAT(#{password},pwd_salt))
     </select>
 
     <select id="findByMobile" resultMap="user">
@@ -45,4 +45,5 @@
             MD5(CONCAT(#{password},#{passwordSalt})),
             #{passwordSalt})
     </insert>
+
 </mapper>

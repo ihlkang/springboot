@@ -10,4 +10,4 @@ spring:
       idle-timeout: 120000
       maximum-pool-size: 8
 server:
-  port: 9455
+  port: 8888

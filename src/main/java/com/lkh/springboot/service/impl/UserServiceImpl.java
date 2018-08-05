@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
 
     private String tryToPutUserInRedis(User user) {
         String token = TokenUtil.generate();
-        //redisService.set(UserKey.token,token,user);
+        redisService.set(UserKey.token,token,user);
         return token;
     }
 

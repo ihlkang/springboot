@@ -32,7 +32,7 @@ public class UserController {
     @PostMapping("/login")
     public Map<String,Object> loginByMobile(@RequestParam String mobile,
                                             @RequestParam String password,
-                                            @RequestParam String captchaToken) {
+                                            @RequestParam(required = false) String captchaToken) {
         log.info("mobile:"+mobile+",password:"+password+",captchaToken:"+captchaToken);
         //captchaService.requireCaptchaValidated(captchaToken);
         Pair<String,User> tokenAndUser = userService.loginUserByMobile(mobile,password);
