@@ -12,38 +12,64 @@
 
     <select id="findByMobileAndPassword" resultMap="user">
         SELECT
-            user_id AS id,
-            user_name AS name,
-            user_mobile AS mobile,
-            '' AS password,
-            create_time AS createTime
+        user_id AS id,
+        user_name AS name,
+        user_mobile AS mobile,
+        '' AS password,
+        create_time AS createTime
         FROM inf_admin_user
         WHERE user_mobile = #{mobile} AND pwd = MD5(CONCAT(#{password},pwd_salt))
     </select>
 
     <select id="findByMobile" resultMap="user">
         SELECT
-            user_id AS id,
-            user_name AS name,
-            user_mobile AS mobile,
-            '' AS password,
-            create_time AS createTime
+        user_id AS id,
+        user_name AS name,
+        user_mobile AS mobile,
+        '' AS password,
+        create_time AS createTime
         FROM inf_admin_user
         WHERE user_mobile = #{mobile}
     </select>
 
     <insert id="createUser" useGeneratedKeys="true" keyColumn="user_id" keyProperty="id">
         INSERT INTO
-            inf_admin_user (
-            user_name,
-            user_mobile,
-            pwd,
-            pwd_salt )
+        inf_admin_user (
+        user_name,
+        user_mobile,
+        pwd,
+        pwd_salt )
         VALUES (
-            #{name},
-            #{mobile},
-            MD5(CONCAT(#{password},#{passwordSalt})),
-            #{passwordSalt})
+        #{name},
+        #{mobile},
+        MD5(CONCAT(#{password},#{passwordSalt})),
+        #{passwordSalt})
     </insert>
 
+    <!--<resultMap id="blackUser" type="com.lkh.springboot.model.BlackUser">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"/>
+        <result property="mobile" column="mobile"/>
+        <result property="createTime" column="createTime"/>
+    </resultMap>-->
+    <select id="queryBlack" resultType="com.lkh.springboot.model.BlackUser">
+        SELECT
+        user_id AS id,
+        user_name AS name,
+        user_mobile AS mobile,
+        create_time AS createTime
+        FROM inf_user_black_list
+    </select>
+
+    <insert id="importBlack" parameterType="com.lkh.springboot.model.BlackUser">
+        insert into inf_user_black_list(user_name, user_mobile,create_time)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                #{item.name,jdbcType=VARCHAR},
+                #{item.mobile,jdbcType=TINYINT},
+                now()
+            </trim>
+        </foreach>
+    </insert>
 </mapper>

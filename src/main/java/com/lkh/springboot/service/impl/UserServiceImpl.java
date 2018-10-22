@@ -2,6 +2,7 @@ package com.lkh.springboot.service.impl;
 
 import com.google.common.base.Strings;
 import com.lkh.springboot.controller.request.UserRequest;
+import com.lkh.springboot.model.BlackUser;
 import com.lkh.springboot.model.User;
 import com.lkh.springboot.repo.UserRepository;
 import com.lkh.springboot.service.UserService;
@@ -13,6 +14,7 @@ import com.lkh.springboot.util.redis.UserKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service("UserService")
@@ -43,6 +45,16 @@ public class UserServiceImpl implements UserService {
     public void addUser(UserRequest userRequest) {
         setSaltToUser(userRequest);
         createUser(userRequest);
+    }
+
+    @Override
+    public int importBlack(List<BlackUser> blackLists) {
+        return userRepository.importBlack(blackLists);
+    }
+
+    @Override
+    public List<BlackUser> queryBlack() {
+        return userRepository.queryBlack();
     }
 
     private void createUser(UserRequest userRequest) {

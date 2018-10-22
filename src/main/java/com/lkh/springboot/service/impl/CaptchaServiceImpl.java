@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 @Service("CaptchaService")
 public class CaptchaServiceImpl implements CaptchaService {
+
     @Override
     public void requireCaptchaValidated(String token) {
 

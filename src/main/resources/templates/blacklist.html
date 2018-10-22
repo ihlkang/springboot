@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>黑名单页面</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/ionicons.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/AdminLTE.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/skins/skin-blue.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/skins/_all-skins.min.css}"/>
+    <script type="text/javascript" th:src="@{/js/jQuery-2.1.4.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/app.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/demo.js}"></script>
+    <script type="text/javascript" th:src="@{/js/My97DatePicker/WdatePicker.js}"></script>
+</head>
+<body style="background-color: #ecf0f5">
+<section class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">黑名单管理</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-inline">
+                        <form id="login-form" th:action="@{/black/index}" th:object="${userBean}">
+                            <input name="page" id="page" value="1" type="hidden">
+                            <label class="control-label">姓名:</label>
+                            <input type="text" th:field="*{name}" />
+                           <!-- <input id="blackName" name="blackName" style="width:100px"
+                                   class="form-control input-sm"/>-->
+                            <label class="control-label">手机号:</label>
+                            <input type="text" th:field="*{mobile}" />
+                            <!--<input id="blackMobile" name="blackMobile" style="width:100px"
+                                   class="form-control input-sm"/>-->
+                            <input type="submit" value="查询">
+                            <button  onclick="imports()" class="btn btn-default" type="button">批量导入</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th style="width: 20px">序号</th>
+                            <th style="width: 70px">姓名</th>
+                            <th style="width: 60px">手机号</th>
+                            <th style="width: 20px">创建时间</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user:${users}">
+                            <td th:text="${user.id }"/>
+                            <td th:text="${user.name}"/>
+                            <td th:text="${user.mobile}"/>
+                            <td th:text="${user.createTime}"/>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div><!-- /.box-body -->
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-7">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" >批量导入</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label  class="control-label">选择文件</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <form id="upload_form" action="/black/upload" method="post" enctype="multipart/form-data" target="iframe1">
+                                    <input type='hidden' name='textfield' id='textfield' />
+                                    <input type="file" name="fileField" class="file" id="fileField"  onchange="document.getElementById('textfield').value=this.value" />
+                                    <br/>
+                                    <br/>
+                                    <a th:href="@{/black/downloadtemplate}">模板下载</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                一次最大上传5MB
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                导入结果：
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group" id="importmsg">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                    <button type="button" id="submitBtn" name="submitBtn" class="btn bg-purple">导入数据</button>
+                </div>
+            </div>
+
+            <iframe name="iframe1" id="iframeID1" src="" width="0" height="0"
+                    frameborder="0" ></iframe>
+        </div>
+    </div>
+
+    <!-- 添加窗口信息 end-->
+    <script type="text/javascript">
+
+        function showMsg(msg){
+            $('#importmsg').html("<font color='red'>"+msg+"</font>");
+            $('#submitBtn').removeAttr("disabled");
+        }
+        function imports(){
+            jQuery('#modal-7').modal('show', {backdrop: 'static'});
+        }
+        $('#submitBtn').click(function(){
+            var excelFile = $("#fileField").val();
+            if(excelFile=='') {alert("请选择需上传的文件!");return false;}
+            if(excelFile.indexOf('.xlsx')==-1){alert("文件格式不正确，请选择正确的Excel文件(.xlsx)！");return false;}
+            $('#submitBtn').attr("disabled","disabled");
+            $('#upload_form').submit();
+        })
+
+    </script>
+</section>
+</body>
+</html>
