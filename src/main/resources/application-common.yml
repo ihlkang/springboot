@@ -11,6 +11,11 @@ spring:
   redis:
     host: 192.168.226.98
     port: 6379
+  mail:
+    host: smtp.qq.com
+    username: 361059351@qq.com
+    password: eikkeyqnukpebjhi
+    default-encoding: UTF-8
 mybatis:
   mapper-locations: classpath:com/lkhu/springboot/mapper/*.xml
   configuration:
@@ -18,4 +23,9 @@ mybatis:
 server:
   compression:
     enabled: true
+mail:
+  fromMail:
+    addr: 361059351@qq.com
+
+
 
